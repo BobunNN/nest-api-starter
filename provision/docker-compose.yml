@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  nest-app:
+    build:
+      context: ..
+      dockerfile: provision/Dockerfile.dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - ../src:/app/src
+      - ../package.json:/app/package.json
+      - ../package-lock.json:/app/package-lock.json
+      - ../tsconfig.json:/app/tsconfig.json
+      - ../tsconfig.build.json:/app/tsconfig.build.json
+      - ../nest-cli.json:/app/nest-cli.json
+    command: ["npm", "run", "start:dev"]
+    depends_on:
+      - postgres
+    environment:
+      - NODE_ENV=development
+      - DATABASE_HOST=postgres
+      - DATABASE_USER=test
+      - DATABASE_PASSWORD=test
+      - DATABASE_DB=db
+
+  postgres:
+    image: postgres:16.13-alpine3.23
+    ports:
+      - 5432:5432
+    volumes:
+      - nest-api-starter-pg:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=test
+      - POSTGRES_PASSWORD=test
+      - POSTGRES_DB=db
+
+volumes:
+  nest-api-starter-pg: # Rename this
