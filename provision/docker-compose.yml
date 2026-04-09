@@ -27,13 +27,14 @@ services:
   postgres:
     image: postgres:16.13-alpine3.23
     ports:
-      - 5432:5432
+      - 5433:5432
     volumes:
       - nest-api-starter-pg:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER=test
       - POSTGRES_PASSWORD=test
       - POSTGRES_DB=db
+      - POSTGRES_PORT=5433
 
 volumes:
   nest-api-starter-pg: # Rename this
