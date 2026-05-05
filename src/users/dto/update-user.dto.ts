@@ -1,9 +1,9 @@
-import { IntersectionType, PartialType } from '@nestjs/swagger';
+import { IntersectionType, OmitType, PartialType } from '@nestjs/swagger';
 import { CreateUserDto } from './create-user.dto';
 import { ProfileDto } from './profile.dto';
 
 export class UpdateUserDto extends
     IntersectionType(
-        PartialType(CreateUserDto),
+        OmitType(PartialType(CreateUserDto), ['email'] as const),
         ProfileDto,
     ) { }
