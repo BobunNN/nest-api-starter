@@ -31,7 +31,7 @@ export class UsersService implements OnModuleInit {
   }
 
   create(createUserDto: CreateUserDto) {
-    return this.userRepository.save(createUserDto);
+    return this.userRepository.save({ ...createUserDto, role: createUserDto.role ?? Role.User });
   }
 
   async createWithPassword(createUserDto: CreateUserDto, hashedPassword: string): Promise<User> {

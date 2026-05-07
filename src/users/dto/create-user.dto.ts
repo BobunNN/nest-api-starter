@@ -22,5 +22,5 @@ export class CreateUserDto {
     @IsNotEmpty({ message: 'Email is required' })
     email!: string;
     
-    role!: Role;
+    role?: Role;
 }

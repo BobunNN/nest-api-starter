@@ -17,6 +17,6 @@ export class User {
     @Column({ length: 20, nullable: true })
     phoneNumber?: string;
 
-    @Column({ nullable: false })
-    role?: string;
+    @Column({ nullable: false, default: 'user' })
+    role!: string;
 }

@@ -1,20 +1,26 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query, ParseIntPipe, NotFoundException } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, ParseIntPipe, NotFoundException, UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { QueryUserDto } from './dto/query-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './entities/user.entity';
+import { Roles } from 'src/common/roles.decorator';
+import { Role } from 'src/common/roles.enum';
+import { AuthGuard, RolesGuard } from 'src/auth/auth.guards';
 
 @Controller('users')
+@UseGuards(AuthGuard, RolesGuard)
 export class UsersController {
   constructor(private readonly usersService: UsersService) { }
 
   @Post()
+  @Roles(Role.Admin)
   create(@Body() dto: CreateUserDto) {
     return this.usersService.adminCreate(dto);
   }
 
   @Get()
+  @Roles(Role.Admin)
   findAll(@Query() query: QueryUserDto) {
     return this.usersService.findByQuery(query);
   }
