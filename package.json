@@ -19,6 +19,7 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "migration:generate": "dotenv -e .env -- typeorm-ts-node-commonjs migration:generate -d src/database/data-source.ts",
+    "migration:generate:local": "docker compose -f provision/docker-compose.yml up -d postgres && DATABASE_HOST=localhost DATABASE_PORT=5433 dotenv -e .env -- typeorm-ts-node-commonjs migration:generate -d src/database/data-source.ts",
     "migration:run": "dotenv -e .env -- typeorm-ts-node-commonjs migration:run -d src/database/data-source.ts",
     "migration:revert": "dotenv -e .env -- typeorm-ts-node-commonjs migration:revert -d src/database/data-source.ts",
     "migration:create": "dotenv -e .env -- typeorm-ts-node-commonjs migration:create src/database/migrations/Migration"
@@ -26,6 +27,7 @@
   "dependencies": {
     "@nestjs/common": "^11.0.1",
     "@nestjs/core": "^11.0.1",
+    "@nestjs/jwt": "^11.0.2",
     "@nestjs/mapped-types": "*",
     "@nestjs/platform-express": "^11.0.1",
     "@nestjs/swagger": "^11.2.6",

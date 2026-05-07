@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   nest-app:
     build:
@@ -14,15 +12,11 @@ services:
       - ../tsconfig.json:/app/tsconfig.json
       - ../tsconfig.build.json:/app/tsconfig.build.json
       - ../nest-cli.json:/app/nest-cli.json
-    command: ["npm", "run", "start:dev"]
+    command: ["sh", "-c", "npm run migration:run && npm run start:dev"]
     depends_on:
       - postgres
-    environment:
-      - NODE_ENV=development
-      - DATABASE_HOST=postgres
-      - DATABASE_USER=test
-      - DATABASE_PASSWORD=test
-      - DATABASE_DB=db
+    env_file:
+      - ../.env
 
   postgres:
     image: postgres:16.13-alpine3.23

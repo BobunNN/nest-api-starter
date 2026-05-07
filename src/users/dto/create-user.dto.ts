@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString, IsEmail, IsNotEmpty, MaxLength } from 'class-validator';
+import { Role } from 'src/common/roles.enum';
 
 
 export class CreateUserDto {
@@ -20,5 +21,6 @@ export class CreateUserDto {
     @MaxLength(50, { message: 'Email is too long' })
     @IsNotEmpty({ message: 'Email is required' })
     email!: string;
-
+    
+    role!: Role;
 }

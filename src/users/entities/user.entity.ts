@@ -11,9 +11,12 @@ export class User {
     @Column({ length: 30 })
     lastName!: string;
 
-    @Column({ unique: true})
+    @Column({ unique: true })
     email!: string;
 
     @Column({ length: 20, nullable: true })
     phoneNumber?: string;
+
+    @Column({ nullable: false })
+    role?: string;
 }
